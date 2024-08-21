@@ -22,14 +22,11 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_wrapper: false
-      - name: Terraform init
-        id: init
+      - name: Terraform Init
         run: terraform init -backend-config="bucket=$TF_STATE_BUCKET_NAME" -backend-config="region=us-east-1"
         working-directory: ./terraform
       - name: Terraform Plan
-        id: plan
-        run: |-
-          terraform plan \
+        run: terraform plan \
           -var="region=us-east-1" \
           -var="public_key=$PUBLIC_SSH_KEY" \
           -var="private_key=$PRIVATE_SSH_KEY" \
@@ -37,6 +34,5 @@ jobs:
           -out=PLAN
         working-directory: ./terraform
       - name: Terraform Apply
-        id: apply
         run: terraform apply PLAN
         working-directory: ./terraform
