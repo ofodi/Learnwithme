@@ -36,3 +36,5 @@ jobs:
       - name: Terraform Apply
         run: terraform apply PLAN
         working-directory: ./terraform
+  deploy-app:
+    runs-on: ubuntu-latest
